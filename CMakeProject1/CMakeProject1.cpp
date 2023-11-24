@@ -4,9 +4,9 @@
 #define ROWS 5
 #define COLS 5
 
-// Функция для отображения текущего состояния мест в зале
+
 void displaySeats(char seats[ROWS][COLS]) {
-    printf("\n\nМеста в зале:\n\n");
+    printf("\n\nVolne mista:\n\n");
 
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -18,56 +18,56 @@ void displaySeats(char seats[ROWS][COLS]) {
     printf("\n");
 }
 
-// Функция для выбора фильма
+
 void chooseMovie() {
-    printf("Выберите фильм:\n");
-    printf("1. Фильм 1\n");
-    printf("2. Фильм 2\n");
-    // Добавьте другие фильмы при необходимости
+    printf("Vyberte film:\n");
+    printf("1. Spider-man 3 \n");
+    printf("2. Harry Potter \n");
+    printf("3. 3 orisky pro popelku\n");
+   
 }
 
-// Функция для резервации места
+
 void reserveSeat(char seats[ROWS][COLS]) {
     int row, col;
 
-    printf("Введите номер ряда (1-%d): ", ROWS);
+    printf("Vyberte radek (1-%d): ", ROWS);
     scanf("%d", &row);
 
-    printf("Введите номер места (1-%d): ", COLS);
+    printf("Vyberte cislo mista (1-%d): ", COLS);
     scanf("%d", &col);
 
-    // Проверка наличия места и его резервация
+    
     if (row >= 1 && row <= ROWS && col >= 1 && col <= COLS && seats[row - 1][col - 1] == 'O') {
         seats[row - 1][col - 1] = 'X';
-        printf("Место успешно зарезервировано!\n");
+        printf("Misto mate rezervovano!\n");
     } else {
-        printf("Извините, это место уже занято или недопустимый выбор. Пожалуйста, выберите другое место.\n");
+        printf("Omlouvame se, misto uz je obsazeno.\n");
     }
 }
 
 int main() {
-    char seats[ROWS][COLS]; // Массив для хранения состояния мест в зале
+    char seats[ROWS][COLS]; 
 
-    // Инициализация мест в зале (предполагается, что все места свободны в начале)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
-            seats[i][j] = 'O'; // 'O' представляет свободное место
+            seats[i][j] = 'O'; 
         }
     }
 
     int choice;
 
     do {
-        chooseMovie(); // Пользователь выбирает фильм
-        displaySeats(seats); // Отображается текущее состояние мест в зале
-        reserveSeat(seats); // Пользователь резервирует место
+        chooseMovie(); 
+        displaySeats(seats); 
+        reserveSeat(seats); 
 
-        printf("Желаете продолжить? (1 - Да, 0 - Нет): ");
+        printf("Chcete pokracovat? (1 - Ano, 0 - Ne): ");
         scanf("%d", &choice);
 
     } while (choice != 0);
 
-    printf("Спасибо за визит в наш кинотеатр!\n");
+    printf("Dekujeme za navstevu!\n");
 
     return 0;
 }
