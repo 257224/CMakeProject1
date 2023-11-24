@@ -5,7 +5,7 @@
 #define COLS 5
 
 
-void displaySeats(char seats[ROWS][COLS]) {
+void displaySedatek(char seats[ROWS][COLS]) {
     printf("\n\nVolne mista:\n\n");
 
     for (int i = 0; i < ROWS; i++) {
@@ -19,7 +19,7 @@ void displaySeats(char seats[ROWS][COLS]) {
 }
 
 
-void chooseMovie() {
+void vyberKina() {
     printf("Vyberte film:\n");
     printf("1. Spider-man 3 \n");
     printf("2. Harry Potter \n");
@@ -28,7 +28,7 @@ void chooseMovie() {
 }
 
 
-void reserveSeat(char seats[ROWS][COLS]) {
+void rezervace(char seats[ROWS][COLS]) {
     int row, col;
 
     printf("Vyberte radek (1-%d): ", ROWS);
@@ -58,9 +58,9 @@ int main() {
     int choice;
 
     do {
-        chooseMovie(); 
-        displaySeats(seats); 
-        reserveSeat(seats); 
+        vyberKina(); 
+        displaySedatek(seats); 
+        rezervace(seats); 
 
         printf("Chcete pokracovat? (1 - Ano, 0 - Ne): ");
         scanf("%d", &choice);
