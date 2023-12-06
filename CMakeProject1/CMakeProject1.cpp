@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 #define RADY 10
 #define SLOUPCE 10
 
@@ -9,7 +8,6 @@ struct Film {
     char name[50];
     char seats[RADY][SLOUPCE];
 };
-
 void displaySedatek(char seats[RADY][SLOUPCE]) {
     printf("\n\nVolne mista:\n\n");
 
@@ -20,10 +18,8 @@ void displaySedatek(char seats[RADY][SLOUPCE]) {
         printf("|"); 
         printf(" obrazovka \n");
     }
-
     printf("\n");
 }
-
 void vyberKina(struct Film *films, int count, int *choice) {
     printf("Vyberte film:\n");
     for (int i = 0; i < count; i++) {
@@ -36,7 +32,6 @@ void vyberKina(struct Film *films, int count, int *choice) {
         *choice = 0;
     }
 }
-
 void rezervace(struct Film *film) {
     int row, col;
 
@@ -53,7 +48,6 @@ void rezervace(struct Film *film) {
         printf("Omlouvame se, misto uz je obsazeno nebo neplatny vyber filmu.\n");
     }
 }
-
 int main() {
     struct Film films[3];
 
@@ -68,22 +62,16 @@ int main() {
             }
         }
     }
-
     int choice;
-
     do {
         vyberKina(films, 3, &choice);
         if (choice != 0) {
             displaySedatek(films[choice - 1].seats);
             rezervace(&films[choice - 1]);
         }
-
         printf("Chcete pokracovat? (1 - Ano, 0 - Ne): ");
         scanf("%d", &choice);
-
     } while (choice != 0);
-
     printf("Dekujeme za navstevu!\n");
-
     return 0;
 }
