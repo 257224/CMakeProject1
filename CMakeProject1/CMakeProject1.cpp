@@ -1,62 +1,52 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#define ROWS 5
-#define COLS 5
+#define RADY 10
+#define SLOUPCE 10
 
 struct Film {
     char name[50];
-    char seats[ROWS][COLS];
+    char seats[RADY][SLOUPCE];
 };
 
-void displaySedatek(char seats[ROWS][COLS]) {
+void displaySedatek(char seats[RADY][SLOUPCE]) {
     printf("\n\nVolne mista:\n\n");
 
-    for (int i = 0; i < ROWS; i++) {
-        for (int j = 0; j < COLS; j++) {
+    for (int i = 0; i < RADY; i++) {
+        for (int j = 0; j < SLOUPCE; j++) {
             printf("%c ", seats[i][j]);
         }
-        printf("\n");
+        printf("|"); 
+        printf(" obrazovka \n");
     }
 
     printf("\n");
 }
 
-void vyberKina(struct Film *film) {
+void vyberKina(struct Film *films, int count, int *choice) {
     printf("Vyberte film:\n");
-    printf("1. Spider-man 3 \n");
-    printf("2. Harry Potter \n");
-    printf("3. 3 orisky pro popelku\n");
+    for (int i = 0; i < count; i++) {
+        printf("%d. %s\n", i + 1, films[i].name);
+    }
 
-    int choice;
-    scanf("%d", &choice);
-
-    switch (choice) {
-        case 1:
-            strcpy(film->name, "Spider-man 3");
-            break;
-        case 2:
-            strcpy(film->name, "Harry Potter");
-            break;
-        case 3:
-            strcpy(film->name, "3 orisky pro popelku");
-            break;
-        default:
-            printf("Neplatny vyber filmu.\n");
-            break;
+    scanf("%d", choice);
+    if (*choice < 1 || *choice > count) {
+        printf("Neplatny vyber filmu.\n");
+        *choice = 0;
     }
 }
 
 void rezervace(struct Film *film) {
     int row, col;
 
-    printf("Vyberte radek (1-%d): ", ROWS);
+    printf("Vyberte radek (1-%d): ", RADY);
     scanf("%d", &row);
 
-    printf("Vyberte cislo mista (1-%d): ", COLS);
+    printf("Vyberte cislo mista (1-%d): ", SLOUPCE);
     scanf("%d", &col);
 
-    if (row >= 1 && row <= ROWS && col >= 1 && col <= COLS && film->seats[row - 1][col - 1] == 'O') {
+    if (row >= 1 && row <= RADY && col >= 1 && col <= SLOUPCE && film->seats[row - 1][col - 1] == 'O') {
         film->seats[row - 1][col - 1] = 'X';
         printf("Misto mate rezervovano pro film \"%s\"!\n", film->name);
     } else {
@@ -65,21 +55,28 @@ void rezervace(struct Film *film) {
 }
 
 int main() {
-    struct Film film;
-    strcpy(film.name, "");
+    struct Film films[3];
 
-    for (int i = 0; i < ROWS; i++) {
-        for (int j = 0; j < COLS; j++) {
-            film.seats[i][j] = 'O';
+    strcpy(films[0].name, "Spider-man 3");
+    strcpy(films[1].name, "Harry Potter");
+    strcpy(films[2].name, "3 orisky pro popelku");
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < RADY; j++) {
+            for (int k = 0; k < SLOUPCE; k++) {
+                films[i].seats[j][k] = 'O';
+            }
         }
     }
 
     int choice;
 
     do {
-        vyberKina(&film);
-        displaySedatek(film.seats);
-        rezervace(&film);
+        vyberKina(films, 3, &choice);
+        if (choice != 0) {
+            displaySedatek(films[choice - 1].seats);
+            rezervace(&films[choice - 1]);
+        }
 
         printf("Chcete pokracovat? (1 - Ano, 0 - Ne): ");
         scanf("%d", &choice);
